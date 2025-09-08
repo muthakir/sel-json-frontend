@@ -10,8 +10,7 @@ let Home = () => {
         name: null,
         frequancy: null,
         script: null,
-        tags: null,
-        location: null,
+        locations: null,
         type: null,
     })
     const [rawMonitors, setRawMonitors] = useState([])

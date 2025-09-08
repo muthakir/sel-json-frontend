@@ -9,7 +9,7 @@ let Upload = ({ onFileChange, onColumnsChange, columns, changeMap, rawMonitors, 
             reader.onload = (e) => {
                 console.log(( Date.now() - firstByte ) / 1000)
                 const binaryString = e.target.result;
-                const workbook = XLSX.read(binaryString, { type: 'binary', sheetRows: 10 });
+                const workbook = XLSX.read(binaryString, { type: 'binary' });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: null });

@@ -11,8 +11,17 @@ function checkProperties(obj) {
 function convertMonitorsToDT(monitor, map) {
     let dtMoniotr = {};
     for (const key of Object.keys(map)) {
-        dtMoniotr[key] = monitor[map[key]]
+        if (key == 'locations'){
+            dtMoniotr[key] = monitor[map[key]].split(',');
+        }
+        else{
+            dtMoniotr[key] = monitor[map[key]]
+        }
+        
     }
+    dtMoniotr['tags'] = [];
+    dtMoniotr["manuallyAssignedApps"] = []; 
+
     return dtMoniotr
 }
 const MapForm = ({ map, columns, setMap, rawMonitors }) => {
@@ -21,12 +30,34 @@ const MapForm = ({ map, columns, setMap, rawMonitors }) => {
     // TODO: check the script. 
     // TODO: send API request to convert the monitors to the json format
     const handleOnClick = () => {
+        console.log(rawMonitors)
         if (checkProperties(map)) {
+            
             const MapedDTMonitors = rawMonitors.map((rawMonitor) => {
                 return convertMonitorsToDT(rawMonitor, map)
             })
             console.log(MapedDTMonitors)
+            fetch("http://127.0.0.1:8000/catchpoint/collection/json", 
+            {
+                method: "POST", 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({monitors: MapedDTMonitors})
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
         }
+        
     }
 
     return (
