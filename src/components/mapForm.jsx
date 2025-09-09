@@ -24,7 +24,7 @@ function convertMonitorsToDT(monitor, map) {
 
     return dtMoniotr
 }
-const MapForm = ({ map, columns, setMap, rawMonitors }) => {
+const MapForm = ({ map, columns, setMap, rawMonitors, setConverted }) => {
     // TODO: check frequency, and tags types 
     // TODO: Handle errors. 
     // TODO: check the script. 
@@ -52,6 +52,7 @@ const MapForm = ({ map, columns, setMap, rawMonitors }) => {
             })
             .then(data => {
                 console.log('Success:', data);
+                setConverted(data)
             })
             .catch(error => {
                 console.error('Fetch error:', error);

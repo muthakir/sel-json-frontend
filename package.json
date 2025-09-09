@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dynatrace/strato-components-preview": "^2.1.1",
+    "@dynatrace/strato-design-tokens": "^1.1.0",
     "@tailwindcss/vite": "^4.1.13",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-intl": "^7.1.11",
     "tailwindcss": "^4.1.13",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
